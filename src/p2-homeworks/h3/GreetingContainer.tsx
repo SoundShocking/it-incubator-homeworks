@@ -1,38 +1,51 @@
-import React, {useState} from 'react'
+import { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
 import Greeting from './Greeting'
+import { UserType } from "./HW3";
 
 type GreetingContainerPropsType = {
-    users: any // need to fix any
-    addUserCallback: any // need to fix any
+	users: UserType[]
+	addUserCallback: (name: string) => void
 }
 
-// более простой и понятный для новичков
-// function GreetingContainer(props: GreetingPropsType) {
+const GreetingContainer: FC<GreetingContainerPropsType> = ({ users, addUserCallback }) => { // деструктуризация пропсов
+	const [name, setName] = useState<string>('')
+	const [error, setError] = useState<string>('')
 
-// более современный и удобный для про :)
-// уровень локальной логики
-const GreetingContainer: React.FC<GreetingContainerPropsType> = ({users, addUserCallback}) => { // деструктуризация пропсов
-    const [name, setName] = useState<any>('') // need to fix any
-    const [error, setError] = useState<any>('') // need to fix any
+	const setNameCallback = (e: ChangeEvent<HTMLInputElement>) => {
+		if (!e.currentTarget.value.trim()) {
+			setError('name is required')
+		} else {
+			setError('')
+		}
+		setName(e.currentTarget.value)
+	}
 
-    const setNameCallback = (e: any) => { // need to fix any
-        setName('') // need to fix
-    }
-    const addUser = () => {
-        alert(`Hello  !`) // need to fix
-    }
+	const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			addUser()
+		}
+	}
 
-    const totalUsers = 0 // need to fix
+	const addUser = () => {
+		if (name) {
+			alert(`Hello ${ name }!`)
+			addUserCallback(name)
+			setName('')
+		}
+	}
 
-    return (
-        <Greeting
-            name={name}
-            setNameCallback={setNameCallback}
-            addUser={addUser}
-            error={error}
-            totalUsers={totalUsers}
-        />
-    )
+	const totalUsers = users.length
+
+	return (
+		<Greeting
+			name={ name }
+			setNameCallback={ setNameCallback }
+			addUser={ addUser }
+			error={ error }
+			totalUsers={ totalUsers }
+			onKeyPressHandler={ onKeyPressHandler }
+		/>
+	)
 }
 
 export default GreetingContainer
