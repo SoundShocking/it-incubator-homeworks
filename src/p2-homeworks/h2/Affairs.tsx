@@ -1,38 +1,42 @@
-import React from 'react'
+import { FC } from "react";
 import Affair from './Affair'
-import {AffairType} from './HW2'
+import { AffairType, FilterType } from './HW2'
+import styles from './Affairs.module.css'
+import clsx from "clsx";
 
-type AffairsPropsType = { // need to fix any
-    data: any
-    setFilter: any
-    deleteAffairCallback: any
+type AffairsPropsType = {
+	data: AffairType[]
+	setFilter: (filter: FilterType) => void
+	deleteAffairCallback: (id: number) => void
+	filter: FilterType
 }
 
-function Affairs(props: AffairsPropsType) {
-    const mappedAffairs = props.data.map((a: AffairType) => (
-        <Affair // should work
-            key={a._id} // кеи ОБЯЗАТЕЛЬНЫ в 99% - так что лучше их писать всегда при создании компонент в мапе
-            affair={a}
-            deleteAffairCallback={props.deleteAffairCallback}
-        />
-    ))
+const Affairs: FC<AffairsPropsType> = (props) => {
+	const mappedAffairs = props.data.map((affair: AffairType) => (
+		<Affair
+			key={ affair._id }
+			affair={ affair }
+			deleteAffairCallback={ props.deleteAffairCallback }
+		/>
+	))
 
-    const setAll = () => {} // need to fix
-    const setHigh = () => {}
-    const setMiddle = () => {}
-    const setLow = () => {}
+	const setAll = () => props.setFilter('all')
+	const setHigh = () => props.setFilter('high')
+	const setMiddle = () => props.setFilter('middle')
+	const setLow = () => props.setFilter('low')
 
-    return (
-        <div>
+	return (
+		<div>
+			{ mappedAffairs }
 
-            {mappedAffairs}
-
-            <button onClick={setAll}>All</button>
-            <button onClick={setHigh}>High</button>
-            <button onClick={setMiddle}>Middle</button>
-            <button onClick={setLow}>Low</button>
-        </div>
-    )
+			<div className={ styles.filters }>
+				<button onClick={ setAll } className={ clsx([styles.btn], [props.filter === 'all' && styles.btnActive]) }>All</button>
+				<button onClick={ setHigh } className={ clsx([styles.btn], [props.filter === 'high' && styles.btnActive]) }>High</button>
+				<button onClick={ setMiddle } className={ clsx([styles.btn], [props.filter === 'middle' && styles.btnActive]) }>Middle</button>
+				<button onClick={ setLow } className={ clsx([styles.btn], [props.filter === 'low' && styles.btnActive]) }>Low</button>
+			</div>
+		</div>
+	)
 }
 
 export default Affairs

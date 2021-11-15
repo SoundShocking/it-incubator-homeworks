@@ -1,21 +1,31 @@
-import React from 'react'
+import { FC } from 'react'
+import clsx from "clsx";
+import { AffairType } from "./HW2";
+import styles from './Affairs.module.css'
 
 type AffairPropsType = {
-    // key не нужно типизировать
-    affair: any // need to fix any
-    deleteAffairCallback: any // need to fix any
+	affair: AffairType
+	deleteAffairCallback: (id: number) => void
 }
 
-function Affair(props: AffairPropsType) {
-    const deleteCallback = () => {}// need to fix
+const Affair: FC<AffairPropsType> = (props) => {
+	const deleteCallback = () => {
+		props.deleteAffairCallback(props.affair._id)
+	}// need to fix
 
-    return (
-        <div>
-            // show some text
+	return (
+		<div className={ styles.affair }>
+			<div>{ props.affair.name }</div>
+			<div className={ clsx(
+				[props.affair.priority === 'low' && styles.low],
+				[props.affair.priority === 'middle' && styles.middle],
+				[props.affair.priority === 'high' && styles.high]
+			) }
+			>{ props.affair.priority }</div>
 
-            <button onClick={deleteCallback}>X</button>
-        </div>
-    )
+			<button onClick={ deleteCallback } className={styles.btnDelete}>X</button>
+		</div>
+	)
 }
 
 export default Affair
