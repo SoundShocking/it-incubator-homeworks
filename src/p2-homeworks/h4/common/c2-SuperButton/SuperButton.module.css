@@ -1,7 +1,28 @@
 .default {
+	padding: 10px 15px;
+	border: none;
+	outline: none;
+	margin: 10px 0;
+	border-radius: 4px;
+	cursor: pointer;
+}
 
+.default:disabled{
+	color: #fff;
+	cursor: not-allowed;
 }
 
 .red {
-    background: red;
+	background: red;
+	padding: 10px 15px;
+	border: none;
+	outline: none;
+	margin: 10px 0;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.button {
+
 }
