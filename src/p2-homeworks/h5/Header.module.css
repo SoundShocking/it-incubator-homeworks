@@ -1,0 +1,23 @@
+.nav {
+	padding: 20px;
+}
+
+.navList {
+	display: flex;
+	list-style: none;
+}
+
+.navItem {
+	margin-right: 15px;
+}
+
+.navLink {
+	color: #fff;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+.navLinkActive {
+	font-weight: 700;
+	text-decoration: underline;
+}

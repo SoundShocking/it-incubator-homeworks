@@ -1,20 +1,15 @@
-import React from 'react'
+import { FC } from "react";
 import Header from './Header'
-import Routes from './Routes'
+import PageRoutes from './PageRoutes'
 
-function HW5() {
-    return (
-        <div>
-            {/*в gh-pages лучше работает HashRouter*/}
-            {/*<HashRouter>*/}
+const HW5: FC = () => {
+	return (
+		<div>
+			<Header />
 
-            <Header/>
-
-            <Routes/>
-
-            {/*</HashRouter>*/}
-        </div>
-    )
+			<PageRoutes />
+		</div>
+	)
 }
 
 export default HW5
